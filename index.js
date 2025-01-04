@@ -11,7 +11,7 @@ const html404 = `<!DOCTYPE html>
 <body>
   <h1>404 Not Found.</h1>
   <p>The url you visit is not found.</p>
-  <a href="https://abdullahcoded.blogspot.com/" target="_self">shortner by ᗩᗷᗪᑌᒪᒪᗩᕼ ᑕᗝᗪᗴᗪ</a>
+  <a href="https://abdullahcoded.blogspot.com/ target="_self">Shortner BY ABDULLAH</a>
 </body>`
 
 let response_header={
@@ -28,7 +28,7 @@ if (config.cors=="on"){
 
 async function randomString(len) {
 　　len = len || 6;
-　　let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+　　let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****Confusing characters are removed by default oOLl,9gq,Vv,Uu,I1****/
 　　let maxPos = $chars.length;
 　　let result = '';
 　　for (i = 0; i < len; i++) {
@@ -66,15 +66,15 @@ async function checkURL(URL){
 } 
 async function save_url(URL){
     let random_key=await randomString()
-    let is_exist=await ABDULLAHCODED.get(random_key)
+    let is_exist=await LINKS.get(random_key)
     console.log(is_exist)
     if (is_exist == null)
-        return await ABDULLAHCODED.put(random_key, URL),random_key
+        return await LINKS.put(random_key, URL),random_key
     else
         save_url(URL)
 }
 async function is_url_exist(url_sha512){
-  let is_exist = await ABDULLAHCODED.get(url_sha512)
+  let is_exist = await LINKS.get(url_sha512)
   console.log(is_exist)
   if (is_exist == null) {
     return false
@@ -84,7 +84,7 @@ async function is_url_exist(url_sha512){
 }
 async function is_url_safe(url){
 
-  let raw = JSON.stringify({"client":{"clientId":"Url-Shorten-Worker","clientVersion":"1.0.7"},"threatInfo":{"threatTypes":["MALWARE","SOCIAL_ENGINEERING","POTENTIALLY_HARMFUL_APPLICATION","UNWANTED_SOFTWARE"],"platformTypes":["ANY_PLATFORM"],"threatEntryTypes":["URL"],"threatEntries":[{"url":url}]}});
+  let raw = JSON.stringify({"client":{"clientId":"Url-Shorten-Worker-by-abdullahcoded","clientVersion":"1.0.7"},"threatInfo":{"threatTypes":["MALWARE","SOCIAL_ENGINEERING","POTENTIALLY_HARMFUL_APPLICATION","UNWANTED_SOFTWARE"],"platformTypes":["ANY_PLATFORM"],"threatEntryTypes":["URL"],"threatEntries":[{"url":url}]}});
 
   let requestOptions = {
     method: 'POST',
@@ -119,7 +119,7 @@ async function handleRequest(request) {
       }else{
         stat,random_key=await save_url(req["url"])
         if (typeof(stat) == "undefined"){
-          console.log(await ABDULLAHCODED.put(url_sha512,random_key))
+          console.log(await LINKS.put(url_sha512,random_key))
         }
       }
     }else{
@@ -148,7 +148,7 @@ async function handleRequest(request) {
   console.log(path)
   if(!path){
 
-    const html= await fetch("https://calledabs.github.io/Url-Shorten-Worker/"+config.theme+"/index.html")
+    const html= await fetch("https://calledabs.github.io/Url-Shorten-Worker-by-abdullahcoded/"+config.theme+"/index.html")
     
     return new Response(await html.text(), {
     headers: {
@@ -157,7 +157,7 @@ async function handleRequest(request) {
   })
   }
 
-  const value = await ABDULLAHCODED.get(path);
+  const value = await LINKS.get(path);
   let location ;
 
   if(params) {
@@ -171,7 +171,7 @@ async function handleRequest(request) {
   if (location) {
     if (config.safe_browsing_api_key){
       if(!(await is_url_safe(location))){
-        let warning_page = await fetch("https://calledabs.github.io/Url-Shorten-Worker/safe-browsing.html")
+        let warning_page = await fetch("https://calledabs.github.io/Url-Shorten-Worker-by-abdullahcoded/safe-browsing.html")
         warning_page =await warning_page.text()
         warning_page = warning_page.replace(/{Replace}/gm, location)
         return new Response(warning_page, {
@@ -182,7 +182,7 @@ async function handleRequest(request) {
       }
     }
     if (config.no_ref=="on"){
-      let no_ref= await fetch("https://calledabs.github.io/Url-Shorten-Worker/no-ref.html")
+      let no_ref= await fetch("https://calledabs.github.io/Url-Shorten-Worker-by-abdullahcoded/no-ref.html")
       no_ref=await no_ref.text()
       no_ref=no_ref.replace(/{Replace}/gm, location)
       return new Response(no_ref, {
