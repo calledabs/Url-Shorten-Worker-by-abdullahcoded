@@ -1,8 +1,7 @@
 
-
 # API documentation
 
-[简体中文](API_zh-hans.md)
+[Simplified Chinese](API_zh-hans.md)
 
 Short links can be generated in a programmable way by calling the API interface
 
